@@ -5,7 +5,8 @@ My crack at using statistical inference and simulation in conjunction
 with some fun custom web interfaces to crush everyone in my fantasy
 league this year. In other words, [data science](datasco.pe)!
 
-More here once there's something to talk about. This project is configured with Vagrant and Fabric,
+More here once there's something to talk about. This project is
+configured with Vagrant and Fabric, read more about how to get it running below.
 
 
 Setting up your dev environment
