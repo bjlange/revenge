@@ -3,28 +3,15 @@ Creates a nice tidy pickle file of the data in the data/ directory.
 """
 
 import os
+import inspect
 import csv
+import pickle
 from collections import defaultdict
-
-class Position:
-    """
-    A position for fantasy football.
-    """
-    def __init__(self, title, players=[]):
-        if title in [QB, RB, WR, TE, DEF, ST, K]:
-            self.title = title
-        else:
-            raise Exception("Position name not valid: %s" % name)
-
-        # a dictionary keyed on player name for quick lookups
-        self.players = {}
-        for player in players:
-            self.players[player.name] = player
-
-
+import pprint
+pp = pprint.PrettyPrinter()
 
 class Player:
-    """A player/squad"""
+    """A player/squad that fills a position"""
     def __init__(self, name, position):
         self.name = name
         self.position = position
@@ -42,16 +29,16 @@ class Player:
 
         for key, val in stats.iteritems():
             key = self.clean_stat_name(key)
-            if key and self.stat_categories and key not in self.stat_categories:
-                raise Exception("Stat '%s' not in existing categories: %s" % \
-                                (key ,str(self.stat_categories)))
+            # if key and self.stat_categories and key not in self.stat_categories:
+            #     raise Exception("Stat '%s' not in existing categories: %s" % \
+            #                     (key ,str(self.stat_categories)))
             try:
                 val = float(val)
             except:
                 pass # if we can't float it, it's probably text or something
 
 
-            self.seasons[year][key] = val
+            self.seasons[int(year)][key] = val
 
     def clean_stat_name(self, stat_name):
         """ for dealing with unruly headers """
@@ -73,25 +60,70 @@ class Player:
         else:
             return False
 
+    def get_season(self, year):
+        season = self.seasons[year]
+        return season
+
+    def get_points(self, year):
+        season = self.seasons[year]
+        score = 0.0
+        if self.position == "QB":
+            if 'Pass Yds' in season.keys():
+                score += season['Pass Yds']/25.0
+            if 'TD' in season.keys():
+                score += season['TD']*4.0
+            if 'Int' in season.keys():
+                score -= season['Int']*2
+
+        if 'Rush Yds' in season.keys():
+            score += season['Rush Yds']/10.0
+        if 'Rush TD' in season.keys():
+            score += season['Rush TD']*6
+
+        if 'Rec Yds' in season.keys():
+            score += season['Rec Yds']/10.0
+        if 'Rec TD' in season.keys():
+            score += season['Rec TD']*6
+
+        if 'FumL' in season.keys():
+            score -= season['FumL']*2
+
+        return score
+
+
+    def print_stat_categories(self):
+        self.stat_categories.sort()
+        print self.position, self.stat_categories
+
 if __name__ == "__main__":
 
     data_root = "./data/"
-
+    positions = defaultdict(dict)
     for subdir, dirs, files in os.walk(data_root):
         if not dirs:
             year = subdir.split('/')[-1]
             for filename in files:
                 if filename.split('.')[-1].lower() == 'csv':
-                    position = filename.split('.')[0].upper()
+                    position_name = filename.split('.')[0].upper()
+                    position_dict = positions[position_name]
+
                     with open(os.path.join(subdir,filename),'rU+') as csvfile:
                         reader=csv.DictReader(csvfile)
                         for obj in reader:
                             try:
-                                p = Player(obj["Name"], position)
-                                p.add_season(year, obj)
+                                name = obj["Name"]
                             except KeyError:
-                                p = Player(obj["Team"], position)
-                                p.add_season(year, obj)
-                            a, b = p.position, p.stat_categories
-                            b.sort()
-                            print a, b
+                                name = obj["Team"]
+
+                            name = name.strip()
+
+                            if name in position_dict.keys():
+                                p = position_dict[name]
+                            else:
+                                p = Player(name, position_name)
+
+                            p.add_season(year, obj)
+
+                            if name not in position_dict.keys():
+                                position_dict[name] = p
+    pickle.dump(positions, open('stats.pkl','w+'))
