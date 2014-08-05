@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="revenge" lang="en">
+  <head>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body style="padding: 2em;">
+    <div class="container-fluid">
+      <div class="row">
+        <form ng-controller="DraftController as draftCtrl" ng-submit="draftCtrl.submit_pick()">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              Pick #{{draftCtrl.current_pick}}
+              (Round {{draftCtrl.get_current_round()}},
+              Pick {{draftCtrl.get_round_pick()}}):
+            </span>
+            <input type="text" class="form-control" placeholder="Enter the drafted player" />
+            <span class="input-group-btn">
+              <button class="btn btn-default btn-success" type="submit">Submit Pick</button>
+            </span>
+          </div>
+          <h3>
+            <span style="margin-right:.7em;" class="label label-danger" ng-show="draftCtrl.picking_now()">
+              PICKING NOW!
+            </span>
+            Your next pick is #{{draftCtrl.user_nplus_pick(1)}}, followed by #{{draftCtrl.user_nplus_pick(2)}}
+          </h3>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <h1>QB</h1>
+          <h2>Saturation</h2>
+          <div>0:</div>
+          <div>1:</div>
+          <div>2:</div>
+          <div>3:</div>
+          <h2>Available now:</h2>
+          <table width="100%" ng-controller="QBController as qbcon">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Proj</th>
+                <th>Tier</th>
+                <th>ADP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="qb in qbcon.players">
+                <td>{{ qb.name }}</td>
+                <td>{{ qb.proj }}</td>
+                <td>{{ qb.tier }}</td>
+                <td>{{ qb.adp }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Likely available next round:</h2>
+          <table width="100%">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Proj</th>
+                <th>Tier</th>
+                <th>Prob</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="col-md-3">
+          <h1>RB</h1>
+          <h2>Saturation</h2>
+          <div>0:</div>
+          <div>1:</div>
+          <div>2:</div>
+          <div>3:</div>
+          <div>4:</div>
+          <div>5:</div>
+          <h2>Available now:</h2>
+          <h2>Likely available next round:</h2>
+        </div>
+        <div class="col-md-3">
+          <h1>WR</h1>
+          <h2>Saturation</h2>
+          <div>0:</div>
+          <div>1:</div>
+          <div>2:</div>
+          <div>3:</div>
+          <div>4:</div>
+          <div>5:</div>
+          <h2>Available now:</h2>
+          <h2>Likely available next round:</h2>
+        </div>
+        <div class="col-md-3">
+          <h1>TE</h1>
+          <h2>Saturation</h2>
+          <div>0:</div>
+          <div>1:</div>
+          <div>2:</div>
+          <h2>Available now:</h2>
+          <h2>Likely available next round:</h2>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript"
+            src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script type="text/javascript"
+            src="app.js"></script>
+  </body>
+</html>
