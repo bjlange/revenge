@@ -1,0 +1,84 @@
+/*
+Syntax error: Undefined mixin 'box-shadow'.
+        on line 32 of ./bootstrap-chosen.scss, in `box-shadow'
+        from line 32 of ./bootstrap-chosen.scss
+
+27: 
+28:   .chosen-drop {
+29:     background: $chosen-background;
+30:     border: 1px solid $chosen-drop-border;
+31:     @include border-bottom-radius($chosen-border-radius);
+32:     @include box-shadow($chosen-drop-box-shadow);
+33:     margin-top: -1px;
+34:     position: absolute;
+35:     top: 100%;
+36:     left: -9000px;
+37:     z-index: $chosen-drop-zindex;
+
+Backtrace:
+./bootstrap-chosen.scss:32:in `box-shadow'
+./bootstrap-chosen.scss:32
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:320:in `block in visit_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:98:in `block in with_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:121:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:98:in `with_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:318:in `visit_mixin'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:121:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:389:in `block (2 levels) in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:389:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:389:in `block in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:387:in `visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:121:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:389:in `block (2 levels) in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:389:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:389:in `block in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:387:in `visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:121:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:52:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:161:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:160:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:180:in `visit_root'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:151:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/tree/root_node.rb:20:in `render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/engine.rb:274:in `render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/plugin/compiler.rb:414:in `update_stylesheet'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/plugin/compiler.rb:189:in `block in update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/plugin/compiler.rb:186:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/plugin/compiler.rb:186:in `update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/plugin/compiler.rb:393:in `on_file_changed'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/lib/sass/plugin/compiler.rb:248:in `block in watch'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/vendor/listen/lib/listen/listener.rb:252:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/vendor/listen/lib/listen/adapters/polling.rb:48:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.5/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined mixin 'box-shadow'.\A         on line 32 of ./bootstrap-chosen.scss, in `box-shadow'\A         from line 32 of ./bootstrap-chosen.scss\A \A 27: \A 28:   .chosen-drop {\A 29:     background: $chosen-background;\A 30:     border: 1px solid $chosen-drop-border;\A 31:     @include border-bottom-radius($chosen-border-radius);\A 32:     @include box-shadow($chosen-drop-box-shadow);\A 33:     margin-top: -1px;\A 34:     position: absolute;\A 35:     top: 100%;\A 36:     left: -9000px;\A 37:     z-index: $chosen-drop-zindex;"; }

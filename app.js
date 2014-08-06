@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('revenge',[ ]);
+    var app = angular.module('revenge',["localytics.directives"]);
     app.controller('QBController', function(){
         this.players = qbs;
     });
@@ -26,6 +26,8 @@
         };
         this.submit_pick = function() {
             this.current_pick += 1;
+            var ind = this.all_players.indexOf(this.player_selected);
+            this.all_players.splice(ind, 1);
         };
         this.picking_now = function() {
             return(this.current_pick ===
@@ -45,18 +47,12 @@
                                           this.get_current_round()+(n-1));
             }
         }
-
-    })
-
-    var qbs = [{name: 'Peyton Manning',
-                adp: 7.4,
-                tier: 1,
-                proj: .39,
-                drafted: false},
-               {name: 'Drew Brees',
-                adp: 26.3,
-                tier: 1,
-                proj: .88,
-                drafted: false}]
-
+        this.player_list = function(position) {
+            return this.all_players.filter(function(element) {
+                return element['pos'] === position;
+            })
+        };
+        this.all_players = players;
+        this.player_selected = this.all_players[0];
+    });
 })();

@@ -2,6 +2,14 @@
 <html ng-app="revenge" lang="en">
   <head>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-chosen/bootstrap.css" />
+    <style type="text/css">
+      .chosen-container-single .chosen-single {
+      height: 46px;
+      font-size: 27px;
+      line-height: 46px;
+      }
+    </style>
   </head>
   <body style="padding: 2em;">
     <div class="container-fluid">
@@ -13,7 +21,8 @@
               (Round {{draftCtrl.get_current_round()}},
               Pick {{draftCtrl.get_round_pick()}}):
             </span>
-            <input type="text" class="form-control" placeholder="Enter the drafted player" />
+            <select chosen class="form-control" ng-model="draftCtrl.player_selected"
+                    ng-options="player.name group by player.pos for player in draftCtrl.all_players" required></select>
             <span class="input-group-btn">
               <button class="btn btn-default btn-success" type="submit">Submit Pick</button>
             </span>
@@ -35,7 +44,7 @@
           <div>2:</div>
           <div>3:</div>
           <h2>Available now:</h2>
-          <table width="100%" ng-controller="QBController as qbcon">
+          <table width="100%">
             <thead>
               <tr>
                 <th>Name</th>
@@ -45,7 +54,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="qb in qbcon.players">
+              <tr>
                 <td>{{ qb.name }}</td>
                 <td>{{ qb.proj }}</td>
                 <td>{{ qb.tier }}</td>
@@ -101,7 +110,14 @@
       </div>
     </div>
     <script type="text/javascript"
+            src="players.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript"
             src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script type="text/javascript"
+            src="bower_components/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript"
+            src="bower_components/angular-chosen-localytics/chosen.js"></script>
     <script type="text/javascript"
             src="app.js"></script>
   </body>
