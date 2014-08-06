@@ -3,12 +3,15 @@ Creates a nice tidy pickle file of the data in the data/ directory.
 """
 
 import os
-import inspect
+import requests
 import csv
 import pickle
 from collections import defaultdict
 import pprint
+import string
+import json
 pp = pprint.PrettyPrinter()
+
 
 class Player:
     """A player/squad that fills a position"""
@@ -94,8 +97,7 @@ class Player:
         self.stat_categories.sort()
         print self.position, self.stat_categories
 
-if __name__ == "__main__":
-
+def load_historical_stats():
     data_root = "./data/"
     positions = defaultdict(dict)
     for subdir, dirs, files in os.walk(data_root):
@@ -126,3 +128,91 @@ if __name__ == "__main__":
                             if name not in position_dict.keys():
                                 position_dict[name] = p
     pickle.dump(positions, open('stats.pkl','w+'))
+
+def get_ffc_adps():
+    ffc_file = requests.get('http://fantasyfootballcalculator.com/adp_csv.php?format=standard&teams=12')
+    ffc_reader = csv.reader(ffc_file.text.split('\n'))
+
+    players = []
+
+    # skip first 5 rows; header info
+    skip_rows(ffc_reader, 5)
+
+    for row in ffc_reader:
+        if len(row) == 7:
+            players.append({"name":normalize_name(row[2]),
+                            "adp":row[1],
+                            "pos":row[3],
+                            "team":row[4],
+                            "bye":row[6]})
+
+    return players
+
+def skip_rows(obj,num):
+    for x in range(num):
+        # skip first 5 rows; header info
+        obj.next()
+
+def get_fp_xls(url, position):
+    players = []
+
+    request = requests.get(url)
+    r = csv.reader(request.text.split('\n'),delimiter='\t')
+    skip_rows(r, 6)
+    for row in r:
+        row = map(string.strip, row)
+        if len(row) > 1:
+            players.append({"name":normalize_name(row[0]),
+                            "team":row[1],
+                            "pos": position,
+                            "projected_pts":row[-2]})
+
+    return players
+
+def normalize_name(name):
+    if name == "Christopher Ivory":
+        name = "Chris Ivory"
+    if name == "Ty Hilton":
+        name = "TY Hilton"
+
+    return name.replace('.','').replace("'",'')
+
+if __name__ == "__main__":
+    players = []
+
+    players.extend(
+        get_fp_xls("http://www.fantasypros.com/nfl/projections/qb.php?export=xls",
+                   "QB"))
+
+    players.extend(
+        get_fp_xls("http://www.fantasypros.com/nfl/projections/rb.php?export=xls",
+                   "RB"))
+
+    players.extend(
+        get_fp_xls("http://www.fantasypros.com/nfl/projections/wr.php?export=xls",
+                   "WR"))
+
+    players.extend(
+        get_fp_xls("http://www.fantasypros.com/nfl/projections/te.php?export=xls",
+                   "TE"))
+
+    adps = get_ffc_adps()
+    for player in adps:
+        if player['pos'] in ['QB','RB','WR','TE']:
+            results = [x for x in enumerate(players)
+                       if x[1]['name'] == player['name']]
+            if len(results) == 0:
+                print 'NO MATCH:', player['name']
+
+            elif len(results) > 1:
+                print 'MULTIMATCH:', player['name'], str(results)
+
+            else:
+                players[results[0][0]]['adp'] = player['adp']
+                players[results[0][0]]['bye'] = player['bye']
+
+
+
+
+    with open('players.js','w+') as outfile:
+        outfile.write("players = " + json.dumps(players))
