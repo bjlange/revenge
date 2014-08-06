@@ -35,7 +35,7 @@ class Player:
             try:
                 val = float(val)
             except:
-                pass # if we can't float it, it's probably text or something
+                pass  # if we can't float it, it's probably text or something
 
 
             self.seasons[int(year)][key] = val
@@ -45,8 +45,7 @@ class Player:
         stat_name = stat_name.strip()
         mapping = {'Rec Tgt':'Targets',
                    'Tgt':'Targets',
-                   'KR Lng': 'KR Long',
-        }
+                   'KR Lng': 'KR Long'}
 
         if self.position == 'QB':
             mapping['YdsL'] = 'Sack Yds'
@@ -108,7 +107,7 @@ if __name__ == "__main__":
                     position_dict = positions[position_name]
 
                     with open(os.path.join(subdir,filename),'rU+') as csvfile:
-                        reader=csv.DictReader(csvfile)
+                        reader = csv.DictReader(csvfile)
                         for obj in reader:
                             try:
                                 name = obj["Name"]
