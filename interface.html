@@ -2,12 +2,18 @@
 <html ng-app="revenge" lang="en">
   <head>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="ng-grid/ng-grid.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-chosen/bootstrap.css" />
     <style type="text/css">
       .chosen-container-single .chosen-single {
       height: 46px;
       font-size: 27px;
       line-height: 46px;
+      }
+      .gridStyle {
+      border: 0px;
+      width: 100%;
+      height: 500px;
       }
     </style>
     <script type="text/javascript"
@@ -44,6 +50,8 @@
         <div class="col-md-3" ng-repeat="position in draftCtrl.positions">
           <h1>{{position}} <span class="label label-info label-">VORP: {{draftCtrl.get_vorp(position) | number : 1}}</span></h1>
           <h2>Available now:</h2>
+          <!-- <div class="gridStyle" ng-grid="draftCtrl.grid_options(position)"> -->
+          <!-- </div> -->
           <table width="100%">
             <thead>
               <tr>

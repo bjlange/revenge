@@ -1,9 +1,7 @@
 (function(){
-    var app = angular.module('revenge',["localytics.directives"]);
-    app.controller('QBController', function(){
-        this.players = qbs;
-    });
+    var app = angular.module('revenge',["localytics.directives",'ngGrid']);
     app.controller('DraftController', function(){
+        this.positions = ['QB','RB','WR','TE'];
         this.user_initial = 3;
         this.current_pick = 1;
         this.round_to_pick = function(initial, round) {
@@ -49,9 +47,10 @@
         }
         this.player_list = function(position) {
             return this.all_players.filter(function(element) {
-                return element['pos'] === position;
+                return element['pos'] === position && 'adp' in element;
             })
         };
+
         this.get_vorp = function(position) {
             var next_pick = this.user_nplus_pick(1);
             var top_this = this.player_list(position).sort(function(a, b){
@@ -64,7 +63,18 @@
 
             return top_score_now - top_next;
         }
+
         this.all_players = players;
         this.player_selected = this.all_players[0];
+        this.grid_options = function(position) {
+            return {
+                data: this.player_list(position),
+                columnDefs: [{field:'name', displayName:'Name'}],
+            }
+        }
+        this.set_initial_draft_position = function() {
+            this.user_initial = parseInt(prompt("Input your first round pick position:"));
+        }
+        this.set_initial_draft_position();
     });
 })();
