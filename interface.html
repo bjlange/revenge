@@ -10,11 +10,16 @@
       line-height: 46px;
       }
     </style>
+    <script type="text/javascript"
+            src="players.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
   </head>
   <body style="padding: 2em;">
-    <div class="container-fluid">
+    <div ng-controller="DraftController as draftCtrl" class="container-fluid">
       <div class="row">
-        <form ng-controller="DraftController as draftCtrl" ng-submit="draftCtrl.submit_pick()">
+        <form ng-submit="draftCtrl.submit_pick()">
           <div class="input-group input-group-lg">
             <span class="input-group-addon">
               Pick #{{draftCtrl.current_pick}}
@@ -36,13 +41,8 @@
         </form>
       </div>
       <div class="row">
-        <div class="col-md-3">
-          <h1>QB</h1>
-          <h2>Saturation</h2>
-          <div>0:</div>
-          <div>1:</div>
-          <div>2:</div>
-          <div>3:</div>
+        <div class="col-md-3" ng-repeat="position in draftCtrl.positions">
+          <h1>{{position}} <span class="label label-info label-">VORP: {{draftCtrl.get_vorp(position) | number : 1}}</span></h1>
           <h2>Available now:</h2>
           <table width="100%">
             <thead>
@@ -54,11 +54,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{{ qb.name }}</td>
-                <td>{{ qb.proj }}</td>
-                <td>{{ qb.tier }}</td>
-                <td>{{ qb.adp }}</td>
+              <tr ng-repeat="player in draftCtrl.player_list(position)">
+                <td>{{player.name}}</td>
+                <td>{{player.projected_pts}}</td>
+                <td>n/a</td>
+                <td>{{player.adp}}</td>
               </tr>
             </tbody>
           </table>
@@ -74,46 +74,10 @@
             </thead>
           </table>
         </div>
-        <div class="col-md-3">
-          <h1>RB</h1>
-          <h2>Saturation</h2>
-          <div>0:</div>
-          <div>1:</div>
-          <div>2:</div>
-          <div>3:</div>
-          <div>4:</div>
-          <div>5:</div>
-          <h2>Available now:</h2>
-          <h2>Likely available next round:</h2>
-        </div>
-        <div class="col-md-3">
-          <h1>WR</h1>
-          <h2>Saturation</h2>
-          <div>0:</div>
-          <div>1:</div>
-          <div>2:</div>
-          <div>3:</div>
-          <div>4:</div>
-          <div>5:</div>
-          <h2>Available now:</h2>
-          <h2>Likely available next round:</h2>
-        </div>
-        <div class="col-md-3">
-          <h1>TE</h1>
-          <h2>Saturation</h2>
-          <div>0:</div>
-          <div>1:</div>
-          <div>2:</div>
-          <h2>Available now:</h2>
-          <h2>Likely available next round:</h2>
-        </div>
       </div>
     </div>
     <script type="text/javascript"
-            src="players.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript"
-            src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+            src="ng-grid/ng-grid-2.0.12.debug.js"></script>
     <script type="text/javascript"
             src="bower_components/chosen/chosen.jquery.js"></script>
     <script type="text/javascript"

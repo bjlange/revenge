@@ -52,6 +52,18 @@
                 return element['pos'] === position;
             })
         };
+        this.get_vorp = function(position) {
+            var next_pick = this.user_nplus_pick(1);
+            var top_this = this.player_list(position).sort(function(a, b){
+                return b['projected_pts'] - a['projected_pts'];
+            });
+            var top_score_now = top_this[0]['projected_pts'];
+            var top_next = top_this.filter(function(element) {
+                return element['adp'] > next_pick;
+            })[0]['projected_pts'];
+
+            return top_score_now - top_next;
+        }
         this.all_players = players;
         this.player_selected = this.all_players[0];
     });
