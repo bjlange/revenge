@@ -165,7 +165,7 @@ def get_fp_xls(url, position):
             players.append({"name":normalize_name(row[0]),
                             "team":row[1],
                             "pos": position,
-                            "projected_pts":row[-2]})
+                            "projected_pts":float(row[-2])})
 
     return players
 
@@ -198,17 +198,22 @@ if __name__ == "__main__":
 
     adps = get_ffc_adps()
     for player in adps:
-        if player['pos'] in ['QB','RB','WR','TE']:
+        if player['pos'] in ['QB','RB','WR','TE','DEF']:
             results = [x for x in enumerate(players)
                        if x[1]['name'] == player['name']]
             if len(results) == 0:
-                print 'NO MATCH:', player['name']
+                if player['pos'] == 'DEF':
+                    players.append({'name':player['name'],
+                                    'adp':player['adp'],
+                                    'pos':player['pos']})
+                else:
+                    print 'NO MATCH:', player['name']
 
             elif len(results) > 1:
                 print 'MULTIMATCH:', player['name'], str(results)
 
             else:
-                players[results[0][0]]['adp'] = player['adp']
+                players[results[0][0]]['adp'] = float(player['adp'])
                 players[results[0][0]]['bye'] = player['bye']
 
 
