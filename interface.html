@@ -19,6 +19,16 @@
       background-color: green;
       color: white;
       }
+      .bar {
+      background-color: #5bc0de;
+      line-height: 1em;
+      height: 2em;
+      padding: .5em;
+      <!-- position:relative; -->
+      <!-- top: -1.4em; -->
+      <!-- z-index: -1; -->
+      overflow: visible;
+      }
     </style>
     <script type="text/javascript"
             src="players.js"></script>
@@ -53,6 +63,17 @@
       <div class="row">
         <div class="col-md-3" ng-repeat="position in draftCtrl.positions">
           <h1>{{position}} <span class="label label-info label-">VORP: {{draftCtrl.get_vorp(position) | number : 1}}</span></h1>
+          <div ng-show="draftCtrl.picking_now()">
+            <h2>Team situations:</h2>
+            <div ng-repeat="(tally, teams) in draftCtrl.situations[position]">
+              <div class="bar" style="width:{{(teams.length/11)*100 | number : 2}}%;">
+                <div style="position:absolute">
+                  {{tally}}: {{teams.length}} teams
+                </div>
+                <!-- <span ng-repeat="team in teams">{{team}}&nbsp;</span> -->
+              </div>
+            </div>
+          </div>
           <h2>Available now:</h2>
           <!-- <div class="gridStyle" ng-grid="draftCtrl.grid_options(position)"> -->
           <!-- </div> -->
@@ -61,7 +82,6 @@
               <tr>
                 <th>Name</th>
                 <th>Proj</th>
-                <th>Tier</th>
                 <th>ADP</th>
               </tr>
             </thead>
@@ -69,22 +89,21 @@
               <tr ng-repeat="player in draftCtrl.player_list(position)">
                 <td>{{player.name}}</td>
                 <td>{{player.projected_pts}}</td>
-                <td>n/a</td>
                 <td ng-class="{undervalue : draftCtrl.is_undervalued(player.adp)}">{{player.adp}}</td>
               </tr>
             </tbody>
           </table>
-          <h2>Likely available next round:</h2>
-          <table width="100%">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Proj</th>
-                <th>Tier</th>
-                <th>Prob</th>
-              </tr>
-            </thead>
-          </table>
+          <!-- <h2>Likely available next round:</h2> -->
+          <!-- <table width="100%"> -->
+          <!--   <thead> -->
+          <!--     <tr> -->
+          <!--       <th>Name</th> -->
+          <!--       <th>Proj</th> -->
+          <!--       <th>Tier</th> -->
+          <!--       <th>Prob</th> -->
+          <!--     </tr> -->
+          <!--   </thead> -->
+          <!-- </table> -->
         </div>
       </div>
     </div>
