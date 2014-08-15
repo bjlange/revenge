@@ -216,8 +216,14 @@ if __name__ == "__main__":
                 players[results[0][0]]['adp'] = float(player['adp'])
                 players[results[0][0]]['bye'] = player['bye']
 
-
-
+    for i in range(12):
+        players.append({'name':"Generic Kicker",
+                        'adp':-1,
+                        'pos':"K"})
+    for i in range(4):
+        players.append({'name':"Generic Defense",
+                        'adp':-1,
+                        'pos':"DEF"})
 
     with open('players.js','w+') as outfile:
         outfile.write("players = " + json.dumps(players))
